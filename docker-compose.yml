@@ -1,0 +1,116 @@
+version: "3.9"
+services:
+  ltihandler: 
+    image: "ghcr.io/fails-components/ltihandler"
+    expose:
+      - "8080"
+    depends_on:
+      - "redis"
+      - "mongo"
+    environment:
+# secret for generation of jwt keys
+      - FAILS_KEYS_SECRET
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+# list of configured LMS in the format "NAME OF LMS|https://path.to.lms.lti.keys/lti/certs.php|https://path.to.lms.lti.tokenurl/lti/token.php|https://path.to.lms.lti.authurl/lti/auth.php|LMSidentifier_in_db" you can include multiple LMS separated by a space
+      - FAILS_LMS_LIST
+      - REDIS_HOST=redis
+      - FAILS_MONGO_URL=mongodb://mongo:27017
+
+  apphandler: 
+    image: "ghcr.io/fails-components/apphandler"
+    expose:
+      - "8080"
+    depends_on:
+      - "redis"
+      - "mongo"
+    environment:
+# secret for generation of jwt keys
+      - FAILS_KEYS_SECRET
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+      - REDIS_HOST=redis
+      - FAILS_MONGO_URL=mongodb://mongo:27017
+      - FAILS_STATIC_WEBSERV_TYPE=nginx
+
+  notepadhandler: 
+    image: "ghcr.io/fails-components/notepadhandler"
+    expose:
+      - "8080"
+    depends_on:
+      - "redis"
+      - "mongo"
+    environment:
+# secret for generation of jwt keys
+      - FAILS_KEYS_SECRET
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+      - REDIS_HOST=redis
+      - FAILS_MONGO_URL=mongodb://mongo:27017
+      - FAILS_STATIC_WEBSERV_TYPE=nginx
+
+  noteshandler: 
+    image: "ghcr.io/fails-components/noteshandler"
+    expose:
+      - "8080"
+    depends_on:
+      - "redis"
+      - "mongo"
+    environment:
+# secret for generation of jwt keys
+      - FAILS_KEYS_SECRET
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+      - REDIS_HOST=redis
+      - FAILS_MONGO_URL=mongodb://mongo:27017
+      - FAILS_STATIC_WEBSERV_TYPE=nginx
+
+  staticserver:
+    image: "staticserver"
+    expose:
+      - "80"
+    environment:
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+    volumes:
+      - type: bind
+# directory to store the user uploaded files (images, pdf), backup required
+      source: ${ASSETS_DATA_DIR}
+        target: /usr/share/nginx/htmlsecuredfiles
+        
+
+
+  redis:
+    image: "redis:6.2-buster"
+    volumes:
+      - type: bind
+# directory to store the redis database (includes no permanent data, backup not necessary)
+        source: ${REDIS_DATA_DIR}
+        target: /data
+    expose:
+      - "6379"
+
+  mongo:
+    image: "mongo:5.0-focal"
+    volumes:
+      - type: volume
+        source: mongo_data_volume
+        target: /data/db
+    expose:
+      - "27017"
+
+  haproxy:
+    build: ./loadbalancer
+    environment:
+# secret for generation of cookie hash to allow sticky session with the loadbalancer
+     - FAILS_COOKIE_KEY
+    ports: 
+      - "80:80"
+      - "443:443"
+
+volumes:
+  mongo_data_volume:
+    external: 
+# data volume to store the mongo db files
+      name: ${MONGO_DATA_VOLUME}
+
