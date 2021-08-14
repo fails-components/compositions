@@ -31,6 +31,7 @@ FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yoursc
 
 REDIS_DATA_DIR="/path/to/your/redis/db"
 MONGO_DATA_VOLUME="volumeforyourmongodb"
+MONGO_BACKUP_DIR="/path/to/your/mongodb/backup"
 
 ASSETS_DATA_DIR="/path/to/your/users/assets"
 

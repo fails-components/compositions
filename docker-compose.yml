@@ -106,6 +106,27 @@ services:
     expose:
       - "27017"
 
+  mongo-backup:
+    container_name: mongo-backup
+    image: tiredofit/db-backup
+    links:
+     - mongo
+    volumes:
+      - type: bind
+# directory to store the mongo database backup, contains important data, back it up!
+        source: ${MONGO_BACKUP_DIR}
+        target: /backup
+    environment:
+      - DB_TYPE=mongo
+      - DB_HOST=mongo
+      - DB_DUMP_FREQ=1440
+      - DB_DUMP_BEGIN=0000
+      - DB_CLEANUP_TIME=8640
+      - MD5=TRUE
+      - COMPRESSION=GZ
+      - SPLIT_DB=FALSE
+    restart: always
+
   haproxy:
     build: ./loadbalancer
     restart: always
