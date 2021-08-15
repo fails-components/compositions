@@ -25,7 +25,7 @@ services:
       - "8080"
     depends_on:
       - "redis"
-      - "mongo"
+      - "mongo"    
     environment:
 # secret for generation of jwt keys
       - FAILS_KEYS_SECRET
@@ -34,6 +34,11 @@ services:
       - REDIS_HOST=redis
       - FAILS_MONGO_URL=mongodb://mongo:27017
       - FAILS_STATIC_WEBSERV_TYPE=nginx
+    volumes:
+      - type: bind
+# directory to store the user uploaded files (images, pdf), backup required
+        source: ${ASSETS_DATA_DIR}
+        target: /usr/src/apphandler/files
 
   notepadhandler: 
     image: "ghcr.io/fails-components/notepadhandler"
@@ -80,6 +85,11 @@ services:
       - FAILS_KEYS_SECRET="dummy"
       - REDIS_HOST=redis
       - FAILS_MONGO_URL=mongodb://mongo:27017
+    volumes:
+      - type: bind
+# directory to store the user uploaded files (images, pdf), backup required
+        source: ${ASSETS_DATA_DIR}
+        target: /usr/src/housekeeping/files
 
   staticserver:
     image: "ghcr.io/fails-components/staticserver"
