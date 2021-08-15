@@ -69,6 +69,18 @@ services:
       - FAILS_MONGO_URL=mongodb://mongo:27017
       - FAILS_STATIC_WEBSERV_TYPE=nginx
 
+  housekeeping: 
+    image: "ghcr.io/fails-components/housekeeping"
+    restart: always
+    depends_on:
+      - "redis"
+      - "mongo"
+    environment:
+      - FAILS_STATIC_SECRET="dummy"
+      - FAILS_KEYS_SECRET="dummy"
+      - REDIS_HOST=redis
+      - FAILS_MONGO_URL=mongodb://mongo:27017
+
   staticserver:
     image: "ghcr.io/fails-components/staticserver"
     restart: always
@@ -95,6 +107,9 @@ services:
         target: /data
     expose:
       - "6379"
+# for development, should be commented for production
+#    ports:
+#      - "6379:6379"
 
   mongo:
     image: "mongo:5.0-focal"
@@ -105,6 +120,9 @@ services:
         target: /data/db
     expose:
       - "27017"
+# for development , should be commented for production
+#    ports:
+#      - "27017:27017"
 
   mongo-backup:
     container_name: mongo-backup
