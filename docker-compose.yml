@@ -15,6 +15,8 @@ services:
       - FAILS_STATIC_SECRET
 # list of configured LMS in the format "NAME OF LMS|https://path.to.lms.lti.keys/lti/certs.php|https://path.to.lms.lti.tokenurl/lti/token.php|https://path.to.lms.lti.authurl/lti/auth.php|LMSidentifier_in_db" you can include multiple LMS separated by a space
       - FAILS_LMS_LIST
+# white list of courses, that have access to the service, useful for limited release
+      - FAILS_LMS_COURSE_WHITELIST
       - REDIS_HOST=redis
       - FAILS_MONGO_URL=mongodb://mongo:27017
 

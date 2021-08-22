@@ -36,7 +36,10 @@ MONGO_BACKUP_DIR="/path/to/your/mongodb/backup"
 ASSETS_DATA_DIR="/path/to/your/users/assets"
 
 FAILS_COOKIE_KEY="keytogeneratecookiesforstickysessioninloadbalancing"
+
+FAILS_LMS_COURSE_WHITELIST="9999 8888"
 ```
+*FAILS_LMS_COURSE_WHITELIST* should only be used, if you want to use a whitelist.
 You can find more details about the configuration variables in the *docker-compose.yml* file or in the source code of the components.
 
 You can fire the fails server up with:
