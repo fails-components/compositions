@@ -166,6 +166,11 @@ services:
     ports: 
       - "80:80"
       - "443:443"
+    volumes:
+      - type: bind
+        source: ${CERT_FILE}
+# path to the certificate file of your webserver
+        target: /usr/local/etc/haproxy/cert.pem
 
 volumes:
   mongo_data_volume:
