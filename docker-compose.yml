@@ -164,8 +164,8 @@ services:
 # secret for generation of cookie hash to allow sticky session with the loadbalancer
      - FAILS_COOKIE_KEY
     ports: 
-      - "80:80"
-      - "443:443"
+      - "${FAILS_HTTP_PORT:-80}:80"
+      - "${FAILS_HTTPS_PORT:-443}:443"
     volumes:
       - type: bind
         source: ${CERT_FILE}
