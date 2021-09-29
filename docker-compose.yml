@@ -139,6 +139,7 @@ services:
   mongo-backup:
     container_name: mongo-backup
     image: tiredofit/db-backup
+    restart: always
     links:
      - mongo
     volumes:
