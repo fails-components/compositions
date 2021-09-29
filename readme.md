@@ -38,8 +38,11 @@ ASSETS_DATA_DIR="/path/to/your/users/assets"
 FAILS_COOKIE_KEY="keytogeneratecookiesforstickysessioninloadbalancing"
 
 FAILS_LMS_COURSE_WHITELIST="9999 8888"
+FAILS_HTTP_PORT = 80
+FAILS_HTTPS_PORT = 443
+
 ```
-*FAILS_LMS_COURSE_WHITELIST* should only be used, if you want to use a whitelist.
+*FAILS_LMS_COURSE_WHITELIST* should only be used, if you want to use a whitelist. *FAILS_HTTP_PORT* and *FAILS_HTTPS_PORT* should only be used, if you differ from the default ports.
 You can find more details about the configuration variables in the *docker-compose.yml* file or in the source code of the components.
 
 You can fire the fails server up with:
