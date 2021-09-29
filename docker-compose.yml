@@ -124,7 +124,7 @@ services:
 #      - "6379:6379"
 
   mongo:
-    image: "mongo:4.4-focal"
+    image: "mongo:${MONGO_VERSION:-4.4-focal}"
     restart: always
     volumes:
       - type: volume
