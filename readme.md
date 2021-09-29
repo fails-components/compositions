@@ -37,6 +37,8 @@ ASSETS_DATA_DIR="/path/to/your/users/assets"
 
 FAILS_COOKIE_KEY="keytogeneratecookiesforstickysessioninloadbalancing"
 
+CERT_FILE="/path/to/your/certificate/file/cert.pem"
+
 FAILS_LMS_COURSE_WHITELIST="9999 8888"
 FAILS_HTTP_PORT=80
 FAILS_HTTPS_PORT=443
