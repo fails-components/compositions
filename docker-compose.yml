@@ -18,7 +18,8 @@ services:
 # white list of courses, that have access to the service, useful for limited release
       - FAILS_LMS_COURSE_WHITELIST
       - REDIS_HOST=redis
-      - FAILS_MONGO_URL=mongodb://${FAILS_MONGO_USER}:${FAILS_MONGO_PASS}@mongo:27017
+      - REDIS_PASS
+      - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
 
   apphandler: 
     image: "ghcr.io/fails-components/apphandler"
@@ -34,7 +35,8 @@ services:
 # secret for generation of generation of securing hashes for user uploaded content
       - FAILS_STATIC_SECRET
       - REDIS_HOST=redis
-      - FAILS_MONGO_URL=mongodb://${FAILS_MONGO_USER}:${FAILS_MONGO_PASS}@mongo:27017
+      - REDIS_PASS
+      - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
       - FAILS_STATIC_WEBSERV_TYPE=nginx
     volumes:
       - type: bind
@@ -56,7 +58,8 @@ services:
 # secret for generation of generation of securing hashes for user uploaded content
       - FAILS_STATIC_SECRET
       - REDIS_HOST=redis
-      - FAILS_MONGO_URL=mongodb://${FAILS_MONGO_USER}:${FAILS_MONGO_PASS}@mongo:27017
+      - REDIS_PASS
+      - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
       - FAILS_STATIC_WEBSERV_TYPE=nginx
 
   noteshandler: 
@@ -73,7 +76,8 @@ services:
 # secret for generation of generation of securing hashes for user uploaded content
       - FAILS_STATIC_SECRET
       - REDIS_HOST=redis
-      - FAILS_MONGO_URL=mongodb://${FAILS_MONGO_USER}:${FAILS_MONGO_PASS}@mongo:27017
+      - REDIS_PASS
+      - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
       - FAILS_STATIC_WEBSERV_TYPE=nginx
 
   housekeeping: 
@@ -86,7 +90,8 @@ services:
       - FAILS_STATIC_SECRET="dummy"
       - FAILS_KEYS_SECRET="dummy"
       - REDIS_HOST=redis
-      - FAILS_MONGO_URL=mongodb://${FAILS_MONGO_USER}:${FAILS_MONGO_PASS}@mongo:27017
+      - REDIS_PASS
+      - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
     volumes:
       - type: bind
 # directory to store the user uploaded files (images, pdf), backup required
@@ -112,6 +117,7 @@ services:
   redis:
     image: "redis:6.2-buster"
     restart: always
+    command: redis-server --requirepass ${REDIS_PASS}
     volumes:
       - type: bind
 # directory to store the redis database (includes no permanent data, backup not necessary)
@@ -131,14 +137,14 @@ services:
         source: mongo_data_volume
         target: /data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${FAILS_MONGO_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${FAILS_MONGO_PASS}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
 
     expose:
       - "27017"
 # for development , should be commented for production
-    ports:
-      - "27017:27017"
+#    ports:
+#      - "27017:27017"
 
   mongo-backup:
     container_name: mongo-backup
@@ -154,8 +160,8 @@ services:
     environment:
       - DB_TYPE=mongo
       - DB_HOST=mongo
-      - DB_USER=${FAILS_MONGO_USER}
-      - DB_PASS=${FAILS_MONGO_PASS}
+      - DB_USER=${MONGO_USER}
+      - DB_PASS=${MONGO_PASS}
       - DB_DUMP_FREQ=1440
       - DB_DUMP_BEGIN=0000
       - DB_CLEANUP_TIME=8640
