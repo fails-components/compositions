@@ -30,11 +30,11 @@ FAILS_STATIC_SECRET="ASECRETFORUSERUPLOADEDASSETSWITHSECUREDURLS"
 FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
 
 REDIS_DATA_DIR="/path/to/your/redis/db"
-FAILS_REDIS_PASS="yourredispassword"
+REDIS_PASS="yourredispassword"
 MONGO_DATA_VOLUME="volumeforyourmongodb"
 MONGO_BACKUP_DIR="/path/to/your/mongodb/backup"
-FAILS_MONGO_USER="usernameforfailsinmongodb"
-FAILS_MONGO_PASS="passwordforthisuser"
+MONGO_USER="usernameforfailsinmongodb"
+MONGO_PASS="passwordforthisuser"
 
 ASSETS_DATA_DIR="/path/to/your/users/assets"
 
