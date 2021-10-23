@@ -127,7 +127,7 @@ services:
       - "6379"
 # for development, should be commented for production
 #    ports:
-#      - "6379:6379"
+#      - "127.0.0.1:6379:6379"
 
   mongo:
     image: "mongo:${MONGO_VERSION:-5.0-focal}"
@@ -144,7 +144,7 @@ services:
       - "27017"
 # for development , should be commented for production
 #    ports:
-#      - "27017:27017"
+#      - "127.0.0.1:27017:27017"
 
   mongo-backup:
     container_name: mongo-backup
