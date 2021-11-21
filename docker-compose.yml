@@ -168,7 +168,6 @@ services:
       - MD5=TRUE
       - COMPRESSION=GZ
       - SPLIT_DB=FALSE
-    restart: always
 
   haproxy:
     build: ./loadbalancer
