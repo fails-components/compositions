@@ -1,3 +1,4 @@
+!["FAILS logo"](failslogo.svg )
 # Fancy automated internet lecture system (**FAILS**) - components
 
 This package is part of FAILS.
