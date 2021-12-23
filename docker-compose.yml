@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   ltihandler: 
-    image: "ghcr.io/fails-components/ltihandler"
+    image: "ghcr.io/fails-components/ltihandler:${FAILS_TAG:-master}"
     restart: always
     expose:
       - "8080"
@@ -22,7 +22,7 @@ services:
       - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
 
   apphandler: 
-    image: "ghcr.io/fails-components/apphandler"
+    image: "ghcr.io/fails-components/apphandler:${FAILS_TAG:-master}"
     restart: always
     expose:
       - "8080"
@@ -45,7 +45,7 @@ services:
         target: /usr/src/apphandler/files
 
   notepadhandler: 
-    image: "ghcr.io/fails-components/notepadhandler"
+    image: "ghcr.io/fails-components/notepadhandler:${FAILS_TAG:-master}"
     restart: always
     expose:
       - "8080"
@@ -63,7 +63,7 @@ services:
       - FAILS_STATIC_WEBSERV_TYPE=nginx
 
   noteshandler: 
-    image: "ghcr.io/fails-components/noteshandler"
+    image: "ghcr.io/fails-components/noteshandler:${FAILS_TAG:-master}"
     restart: always
     expose:
       - "8080"
@@ -81,7 +81,7 @@ services:
       - FAILS_STATIC_WEBSERV_TYPE=nginx
 
   housekeeping: 
-    image: "ghcr.io/fails-components/housekeeping"
+    image: "ghcr.io/fails-components/housekeeping:${FAILS_TAG:-master}"
     restart: always
     depends_on:
       - "redis"
@@ -99,7 +99,7 @@ services:
         target: /usr/src/housekeeping/files
 
   staticserver:
-    image: "ghcr.io/fails-components/staticserver"
+    image: "ghcr.io/fails-components/staticserver:${FAILS_TAG:-master}"
     restart: always
     expose:
       - "80"

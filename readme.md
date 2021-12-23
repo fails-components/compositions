@@ -27,6 +27,8 @@ You can use the files in this repository to easily setup of installation of fail
 
 First step is to create a *.env* files with the configuration variables:
 ```
+FAILS_TAG="master" # optional tag of fails container, either a version tag or a branch tag
+
 FAILS_KEYS_SECRET="YOURKEYFORJWTKEYGENERATION"
 FAILS_STATIC_SECRET="ASECRETFORUSERUPLOADEDASSETSWITHSECUREDURLS"
 
