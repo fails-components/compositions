@@ -44,6 +44,21 @@ services:
         source: ${ASSETS_DATA_DIR}
         target: /usr/src/apphandler/files
 
+  authhandler: 
+    image: "ghcr.io/fails-components/authhandler:${FAILS_TAG:-master}"
+    restart: always
+    expose:
+      - "8080"
+    depends_on:
+      - "redis"
+    environment:
+# secret for generation of jwt keys
+      - FAILS_KEYS_SECRET
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+      - REDIS_HOST=redis
+      - REDIS_PASS
+
   notepadhandler: 
     image: "ghcr.io/fails-components/notepadhandler:${FAILS_TAG:-master}"
     restart: always
