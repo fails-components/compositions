@@ -1,5 +1,13 @@
 !["FAILS logo"](failslogo.svg )
 # Fancy automated internet lecture system (**FAILS**) - components
+[![Publish apphandler container](https://github.com/fails-components/apphandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/apphandler/actions/workflows/docker-publish.yml)
+[![Publish authhandler container](https://github.com/fails-components/authhandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/authhandler/actions/workflows/docker-publish.yml)
+[![Publish housekeeping container](https://github.com/fails-components/housekeeping/actions/workflows/docker-build.yml/badge.svg)](https://github.com/fails-components/housekeeping/actions/workflows/docker-build.yml)
+[![Publish ltihandler container](https://github.com/fails-components/ltihandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/ltihandler/actions/workflows/docker-publish.yml)
+[![Publish notepadhandler container](https://github.com/fails-components/notepadhandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/notepadhandler/actions/workflows/docker-publish.yml)
+[![Publish noteshandler container](https://github.com/fails-components/noteshandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/noteshandler/actions/workflows/docker-publish.yml)
+[![Publish staticserver container](https://github.com/fails-components/staticserver/actions/workflows/docker-build.yml/badge.svg)](https://github.com/fails-components/staticserver/actions/workflows/docker-build.yml)
+
 
 This package is part of FAILS.
 A web based system developed out of university lectures.
