@@ -48,6 +48,7 @@ MONGO_DATA_VOLUME="volumeforyourmongodb"
 MONGO_BACKUP_DIR="/path/to/your/mongodb/backup"
 MONGO_USER="usernameforfailsinmongodb"
 MONGO_PASS="passwordforthisuser"
+#MONGO_OPTIONS="--wiredTigerCacheSizeGB 0.5"
 
 ASSETS_DATA_DIR="/path/to/your/users/assets"
 
