@@ -146,6 +146,7 @@ services:
 
   mongo:
     image: "mongo:${MONGO_VERSION:-5.0-focal}"
+    command: ${MONGO_OPTIONS}
     restart: always
     volumes:
       - type: volume
