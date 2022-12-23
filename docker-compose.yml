@@ -133,7 +133,7 @@ services:
 # needed if swift is used
       - FAILS_SWIFT_ACCOUNT
       - FAILS_SWIFT_CONTAINER
-      - FAILS_SWIFT_KEY="dummy"
+      - FAILS_SWIFT_KEY
       - FAILS_SWIFT_BASEURL
       - FAILS_SWIFT_AUTH_BASEURL
       - FAILS_SWIFT_USERNAME
