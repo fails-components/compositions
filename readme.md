@@ -52,8 +52,9 @@ FAILS_STATIC_SAVE_TYPE="fs"
 #FAILS_SWIFT_BASEURL="https://somestorageprovider.org"
 #FAILS_SWIFT_USERNAME="UserNameForAccessingYourBucket"
 #FAILS_SWIFT_PASSWORD="PasswordForYourUserName"
-#FAILS_SWIFT_DOMAIN="DomainForYourStorageOrUseProject"
-#FAILS_SWIFT_PROJECT="ProjectForYourStorageOrUseDomain"
+#FAILS_SWIFT_AUTH_BASEURL = "https://auth.somestorageprovider.org"
+#FAILS_SWIFT_DOMAIN="DomainForYourStorage"
+#FAILS_SWIFT_PROJECT="ProjectForYourStorage"
 
 
 FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
