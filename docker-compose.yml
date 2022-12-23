@@ -12,7 +12,7 @@ services:
 # secret for generation of jwt keys
       - FAILS_KEYS_SECRET
 # secret for generation of generation of securing hashes for user uploaded content
-      - FAILS_STATIC_SECRET
+      - FAILS_STATIC_SECRET="dummy"
 # list of configured LMS in the format "NAME OF LMS|https://path.to.lms.lti.keys/lti/certs.php|https://path.to.lms.lti.tokenurl/lti/token.php|https://path.to.lms.lti.authurl/lti/auth.php|LMSidentifier_in_db" you can include multiple LMS separated by a space
       - FAILS_LMS_LIST
 # white list of courses, that have access to the service, useful for limited release
@@ -37,10 +37,20 @@ services:
       - REDIS_HOST=redis
       - REDIS_PASS
       - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
-      - FAILS_STATIC_WEBSERV_TYPE=nginx
+      - FAILS_STATIC_WEBSERV_TYPE=${FAILS_STATIC_WEBSERV_TYPE:-nginx}
+      - FAILS_STATIC_SAVE_TYPE=${FAILS_STATIC_SAVE_TYPE:-fs}
+# needed if swift is used
+      - FAILS_SWIFT_ACCOUNT
+      - FAILS_SWIFT_CONTAINER
+      - FAILS_SWIFT_KEY
+      - FAILS_SWIFT_BASEURL
+      - FAILS_SWIFT_USERNAME
+      - FAILS_SWIFT_PASSWORD
+      - FAILS_SWIFT_DOMAIN
+      - FAILS_SWIFT_PROJECT
     volumes:
       - type: bind
-# directory to store the user uploaded files (images, pdf), backup required
+# directory to store the user uploaded files (images, pdf), backup required, if fs is used
         source: ${ASSETS_DATA_DIR}
         target: /usr/src/apphandler/files
 
@@ -55,7 +65,7 @@ services:
 # secret for generation of jwt keys
       - FAILS_KEYS_SECRET
 # secret for generation of generation of securing hashes for user uploaded content
-      - FAILS_STATIC_SECRET
+      - FAILS_STATIC_SECRET="dummy"
       - REDIS_HOST=redis
       - REDIS_PASS
 
@@ -75,7 +85,12 @@ services:
       - REDIS_HOST=redis
       - REDIS_PASS
       - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
-      - FAILS_STATIC_WEBSERV_TYPE=nginx
+      - FAILS_STATIC_WEBSERV_TYPE=${FAILS_STATIC_WEBSERV_TYPE:-nginx}
+# needed if swift is used
+      - FAILS_SWIFT_ACCOUNT
+      - FAILS_SWIFT_CONTAINER
+      - FAILS_SWIFT_KEY
+      - FAILS_SWIFT_BASEURL
 
   noteshandler: 
     image: "ghcr.io/fails-components/noteshandler:${FAILS_TAG:-master}"
@@ -93,7 +108,12 @@ services:
       - REDIS_HOST=redis
       - REDIS_PASS
       - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
-      - FAILS_STATIC_WEBSERV_TYPE=nginx
+      - FAILS_STATIC_WEBSERV_TYPE=${FAILS_STATIC_WEBSERV_TYPE:-nginx}
+# needed if swift is used
+      - FAILS_SWIFT_ACCOUNT
+      - FAILS_SWIFT_CONTAINER
+      - FAILS_SWIFT_KEY
+      - FAILS_SWIFT_BASEURL
 
   housekeeping: 
     image: "ghcr.io/fails-components/housekeeping:${FAILS_TAG:-master}"
@@ -107,6 +127,17 @@ services:
       - REDIS_HOST=redis
       - REDIS_PASS
       - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
+      - FAILS_STATIC_WEBSERV_TYPE=${FAILS_STATIC_WEBSERV_TYPE:-nginx}
+      - FAILS_STATIC_SAVE_TYPE=${FAILS_STATIC_SAVE_TYPE:-fs}
+# needed if swift is used
+      - FAILS_SWIFT_ACCOUNT
+      - FAILS_SWIFT_CONTAINER
+      - FAILS_SWIFT_KEY="dummy"
+      - FAILS_SWIFT_BASEURL
+      - FAILS_SWIFT_USERNAME
+      - FAILS_SWIFT_PASSWORD
+      - FAILS_SWIFT_DOMAIN
+      - FAILS_SWIFT_PROJECT
     volumes:
       - type: bind
 # directory to store the user uploaded files (images, pdf), backup required
