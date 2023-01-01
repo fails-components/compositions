@@ -1,0 +1,28 @@
+{{- if .Values.authhandler.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "fails-components.fullname" . }}-authhandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-authhandler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "fails-components.fullname" . }}-authhandler
+  minReplicas: {{ .Values.authhandler.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.authhandler.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.authhandler.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.authhandler.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.authhandler.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.authhandler.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fails-components.fullname" . }}-apphandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-apphandler
+spec:
+  {{- if not .Values.apphandler.autoscaling.enabled }}
+  replicas: {{ .Values.apphandler.replicaCount }}
+  {{- end }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      {{- include "fails-components.selectorLabels" . | nindent 6 }}-apphandler
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "fails-components.selectorLabels" . | nindent 8 }}-apphandler
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+#      serviceAccountName: {{ include "fails-components.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-apphandler
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repositoryprefix }}apphandler:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: FAILS_KEYS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.keys.secretName }}
+                  key: {{ .Values.keys.secretKey }}
+                  optional: false
+            - name: FAILS_STATIC_WEBSERV_TYPE
+              value: "openstackswift"
+            - name: FAILS_STATIC_SAVE_TYPE
+              value: "openstackswift"
+            - name: FAILS_STATIC_SECRET
+              value: "dummy"
+            - name:  REDIS_HOST
+              value: "{{ .Values.redis.host }}"
+            - name:  REDIS_PORT
+              value: "{{ .Values.redis.port }}"
+            - name: REDIS_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.redis.secretName }}
+                  key: {{ .Values.redis.secretKey }}
+                  optional: false
+            - name: FAILS_MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongo.secretName }}
+                  key: {{ .Values.mongo.secretKeyPassword }}
+                  optional: false               
+            - name: FAILS_MONGO_URL
+              value: "mongodb://{{ .Values.mongo.user }}:$(FAILS_MONGO_PASSWORD)@{{ .Values.mongo.connSrv }}:{{ .Values.mongo.port }}/{{ .Values.mongo.optionsSrv }}"
+            # needed if swift is used
+            - name: FAILS_SWIFT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.swift.secretName }}
+                  key: {{ .Values.swift.secretKeySwiftKey }}
+                  optional: false
+            - name: FAILS_SWIFT_ACCOUNT
+              value: "{{ .Values.swift.account }}"
+            - name: FAILS_SWIFT_CONTAINER
+              value: "{{ .Values.swift.container }}"
+            - name: FAILS_SWIFT_BASEURL
+              value: "{{ .Values.swift.baseurl }}" 
+            - name: FAILS_SWIFT_AUTH_BASEURL
+              value: "{{ .Values.swift.authbaseurl }}" 
+            - name: FAILS_SWIFT_USERNAME
+              value: "{{ .Values.swift.username }}" 
+            - name: FAILS_SWIFT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.swift.secretName }}
+                  key: {{ .Values.swift.secretKeySwiftPassword }}
+                  optional: false
+            - name: FAILS_SWIFT_DOMAIN
+              value: "{{ .Values.swift.domain }}" 
+            - name: FAILS_SWIFT_PROJECT
+              value: "{{ .Values.swift.project }}"    
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {{- toYaml .Values.apphandler.resources | nindent 12 }}
+      {{- with .Values.apphandler.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apphandler.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apphandler.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

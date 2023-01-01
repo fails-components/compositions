@@ -4,3 +4,5 @@ node_modules
 *.key
 *.crt
 docker-compose/.env
+helmchart/configexamples
+

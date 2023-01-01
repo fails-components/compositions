@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fails-components.fullname" . }}-noteshandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-noteshandler
+spec:
+  type: {{ .Values.noteshandler.service.type }}
+  ports:
+    - port: {{ .Values.noteshandler.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "fails-components.selectorLabels" . | nindent 4 }}-noteshandler

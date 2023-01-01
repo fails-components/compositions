@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fails-components.fullname" . }}-authhandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-authhandler
+spec:
+  type: {{ .Values.authhandler.service.type }}
+  ports:
+    - port: {{ .Values.authhandler.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "fails-components.selectorLabels" . | nindent 4 }}-authhandler

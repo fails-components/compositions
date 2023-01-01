@@ -1,0 +1,144 @@
+{{- $fullName := include "fails-components.fullname" . -}}
+{{- $ltiSvcPort := .Values.ltihandler.service.port -}}
+{{- $appSvcPort := .Values.apphandler.service.port -}}
+{{- $staticSvcPort := .Values.staticserver.service.port -}}
+{{- $notepadSvcPort := .Values.notepadhandler.service.port -}}
+{{- $notesSvcPort := .Values.noteshandler.service.port -}}
+{{- $authSvcPort := .Values.authhandler.service.port -}}
+{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
+  {{- end }}
+{{- end }}
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          - path: /lti/
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-ltihandler
+                port:
+                  number: {{ $ltiSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-ltihandler
+              servicePort: {{ $ltiSvcPort }}
+              {{- end }}
+          - path: /app/
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-apphandler
+                port:
+                  number: {{ $appSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-apphandler
+              servicePort: {{ $appSvcPort }}
+              {{- end }}
+          - path: /static/app
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-staticserver
+                port:
+                  number: {{ $staticSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-staticserver
+              servicePort: {{ $staticSvcPort }}
+              {{- end }}
+          - path: /static/lecture
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-staticserver
+                port:
+                  number: {{ $staticSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-staticserver
+              servicePort: {{ $staticSvcPort }}
+              {{- end }}          
+          - path: /static/oss
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-staticserver
+                port:
+                  number: {{ $staticSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-staticserver
+              servicePort: {{ $staticSvcPort }}
+              {{- end }}
+          - path: /notepad.io/
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-notepadhandler
+                port:
+                  number: {{ $notepadSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-notepadhandler
+              servicePort: {{ $notepadSvcPort }}
+              {{- end }}
+          - path: /notes.io/
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-noteshandler
+                port:
+                  number: {{ $notesSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-noteshandler
+              servicePort: {{ $notesSvcPort }}
+              {{- end }}      
+          - path: /auth.io/
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-authhandler
+                port:
+                  number: {{ $authSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-authhandler
+              servicePort: {{ $authSvcPort }}
+              {{- end }}           
+    {{- end }}

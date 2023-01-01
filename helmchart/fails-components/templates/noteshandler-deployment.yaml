@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fails-components.fullname" . }}-noteshandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-noteshandler
+spec:
+  {{- if not .Values.noteshandler.autoscaling.enabled }}
+  replicas: {{ .Values.noteshandler.replicaCount }}
+  {{- end }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      {{- include "fails-components.selectorLabels" . | nindent 6 }}-noteshandler
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "fails-components.selectorLabels" . | nindent 8 }}-noteshandler
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+#      serviceAccountName: {{ include "fails-components.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-noteshandler
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repositoryprefix }}noteshandler:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: FAILS_KEYS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.keys.secretName }}
+                  key: {{ .Values.keys.secretKey }}
+                  optional: false
+            - name: FAILS_STATIC_WEBSERV_TYPE
+              value: "openstackswift"
+            - name: FAILS_STATIC_SECRET
+              value: "dummy"
+            - name:  REDIS_HOST
+              value: "{{ .Values.redis.host }}"
+            - name:  REDIS_PORT
+              value: "{{ .Values.redis.port }}"
+            - name: REDIS_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.redis.secretName }}
+                  key: {{ .Values.redis.secretKey }}
+                  optional: false
+            - name: FAILS_MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongo.secretName }}
+                  key: {{ .Values.mongo.secretKeyPassword }}
+                  optional: false               
+            - name: FAILS_MONGO_URL
+              value: "mongodb://{{ .Values.mongo.user }}:$(FAILS_MONGO_PASSWORD)@{{ .Values.mongo.connSrv }}:{{ .Values.mongo.port }}/{{ .Values.mongo.optionsSrv }}"
+            # needed if swift is used
+            - name: FAILS_SWIFT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.swift.secretName }}
+                  key: {{ .Values.swift.secretKeySwiftKey }}
+                  optional: false
+            - name: FAILS_SWIFT_ACCOUNT
+              value: "{{ .Values.swift.account }}"
+            - name: FAILS_SWIFT_CONTAINER
+              value: "{{ .Values.swift.container }}"
+            - name: FAILS_SWIFT_BASEURL
+              value: "{{ .Values.swift.baseurl }}"               
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.noteshandler.resources | nindent 12 }}
+      {{- with .Values.noteshandler.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.noteshandler.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.noteshandler.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

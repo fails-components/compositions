@@ -1,0 +1,254 @@
+# Default values for fails-components.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+
+image:
+  #prefix for all images
+  repositoryprefix: ghcr.io/fails-components/
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "master"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+lmsconfig:
+  # configure your lms
+  # list: "TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
+  #REMOVE before commit
+  list: ""
+  # white list courses for a limited release in your lms
+  # course_whitelist: "9999 8888"
+  # course_whitelist: ""
+keys: 
+  secretName: "fails-secrets"
+  secretKey: "keys_secret"
+
+# swift container for storing assets
+swift:
+#  baseurl: "https://storage.yourprovider.net"
+#  account: "OpenShiftAccount"
+#  container: "failsassets"
+  secretName: "fails-secrets"
+  secretKeySwiftKey: "swift_key"
+
+#  username: "OpenShiftUserName"
+#  secretKeySwiftPassword: "swift_password"
+#  authbaseurl: "https://auth.yourprovider.net"
+#  domain: "default"
+#  project: "yourproject"
+
+redis:
+  host: "redis"
+  port: 6379
+  secretName: "fails-secrets"
+  secretKey: "redis_pass"
+
+# note your database has the name "fails" your user needs acces to the database
+mongo:
+  user: "failsuser"
+  secretName: "fails-secrets"
+  secretKeyPassword: "mongo_password"
+
+  connSrv: "fails-mongodb-svc.default.svc.cluster.local"
+  optionsSrv: "?replicaSet=fails-mongodb"
+  port: 27017
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+
+ingress:
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # you may have to allow larger body sizes, e..g for an nginx ingress 20000,
+    # nginx.ingress.kubernetes.io/proxy-body-size: 20000m
+    # further more you have to configure stickyness
+    # nginx.ingress.kubernetes.io/affinity: "cookie"
+    # nginx.ingress.kubernetes.io/session-cookie-name: "failsroute"
+    # nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    # nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+  hosts:
+    - host: localhost
+
+  tls: []
+  #  - secretName: fails-components-tls
+  #    hosts:
+  #      - fails-test.local
+
+
+# the ltihandler, handles authentification against the LTI and issues initial tokens
+ltihandler:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# the apphandler, handles the app inside the LTI
+apphandler:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# the staticserver, serves the main app, may be replaced later with object storage
+staticserver:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# housekeeping, deletes assets, transfers data from redis to mongo and initializes the database
+housekeeping:
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# the notepadhandler, handles notepad and screens in lecture halls
+notepadhandler:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# the noteshandler, handles notes for student devices
+noteshandler:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# the authhandler, handles authentification for separate devices through QR codes or passcodes
+authhandler:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}

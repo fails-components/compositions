@@ -1,0 +1,28 @@
+{{- if .Values.notepadhandler.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "fails-components.fullname" . }}-notepadhandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-notepadhandler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "fails-components.fullname" . }}-notepadhandler
+  minReplicas: {{ .Values.notepadhandler.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.notepadhandler.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.notepadhandler.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.notepadhandler.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.notepadhandler.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.notepadhandler.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

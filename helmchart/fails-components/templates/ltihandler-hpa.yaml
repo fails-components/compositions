@@ -1,0 +1,28 @@
+{{- if .Values.ltihandler.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "fails-components.fullname" . }}-ltihandler
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-ltihandler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "fails-components.fullname" . }}-ltihandler
+  minReplicas: {{ .Values.ltihandler.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.ltihandler.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.ltihandler.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.ltihandler.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.ltihandler.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.ltihandler.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}
