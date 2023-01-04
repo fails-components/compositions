@@ -69,7 +69,7 @@ spec:
                   key: {{ .Values.mongo.secretKeyPassword }}
                   optional: false               
             - name: FAILS_MONGO_URL
-              value: "mongodb://{{ .Values.mongo.user }}:$(FAILS_MONGO_PASSWORD)@{{ .Values.mongo.connSrv }}:{{ .Values.mongo.port }}/{{ .Values.mongo.optionsSrv }}"
+              value: "mongodb://{{ .Values.mongo.user }}:$(FAILS_MONGO_PASSWORD)@{{ .Values.mongo.mongoConnection }}"
           ports:
             - name: http
               containerPort: 8080

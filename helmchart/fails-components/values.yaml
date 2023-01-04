@@ -53,9 +53,7 @@ mongo:
   secretName: "fails-secrets"
   secretKeyPassword: "mongo_password"
 
-  connSrv: "fails-mongodb-svc.default.svc.cluster.local"
-  optionsSrv: "?replicaSet=fails-mongodb"
-  port: 27017
+  mongoConnection: "fails-mongodb-svc.default.svc.cluster.local:27017?replicaSet=fails-mongodb"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -82,7 +80,7 @@ securityContext: {}
 
 
 ingress:
-  className: "nginx"
+  className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
