@@ -15,6 +15,11 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      {{- if  .Values.useClusterIPforService }}
+      nodePort: {{ .Values.serviceNodePort }}
+      {{- end }}
   selector:
     {{- include "fails-components.selectorLabels" . | nindent 4 }}-notepadhandler
-  externalTrafficPolicy: {{ .Values.externalTrafficPolicy }}
+  {{- if  .Values.useClusterIPforService }}
+  externalTrafficPolicy: Local
+  {{- end }}
