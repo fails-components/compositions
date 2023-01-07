@@ -22,5 +22,6 @@ spec:
     {{- include "fails-components.selectorLabels" . | nindent 4 }}-noteshandler
   {{- if  .Values.useClusterIPforService }}
   externalTrafficPolicy: Local
+  type: NodePort
   {{- end }}
   

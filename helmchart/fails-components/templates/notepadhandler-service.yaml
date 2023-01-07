@@ -22,4 +22,5 @@ spec:
     {{- include "fails-components.selectorLabels" . | nindent 4 }}-notepadhandler
   {{- if  .Values.useClusterIPforService }}
   externalTrafficPolicy: Local
+  type: NodePort
   {{- end }}
