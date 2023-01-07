@@ -4,6 +4,10 @@ metadata:
   name: {{ include "fails-components.fullname" . }}-notepadhandler
   labels:
     {{- include "fails-components.labels" . | nindent 4 }}-notepadhandler
+  {{- with .Values.serviceAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
 spec:
   type: {{ .Values.notepadhandler.service.type }}
   ports:

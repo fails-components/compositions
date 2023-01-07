@@ -99,6 +99,8 @@ ingress:
   #    hosts:
   #      - fails-test.local
 
+# serviceAnnotations for pods with socket.io configure stickyness!
+serviceAnnotations: {}
 
 # the ltihandler, handles authentification against the LTI and issues initial tokens
 ltihandler:
