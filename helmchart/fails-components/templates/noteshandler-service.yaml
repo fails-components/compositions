@@ -17,3 +17,5 @@ spec:
       name: http
   selector:
     {{- include "fails-components.selectorLabels" . | nindent 4 }}-noteshandler
+  externalTrafficPolicy: {{ .Values.externalTrafficPolicy }}
+  

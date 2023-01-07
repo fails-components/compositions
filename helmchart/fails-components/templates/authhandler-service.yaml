@@ -4,6 +4,10 @@ metadata:
   name: {{ include "fails-components.fullname" . }}-authhandler
   labels:
     {{- include "fails-components.labels" . | nindent 4 }}-authhandler
+  {{- with .Values.serviceAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
 spec:
   type: {{ .Values.authhandler.service.type }}
   ports:
@@ -13,3 +17,4 @@ spec:
       name: http
   selector:
     {{- include "fails-components.selectorLabels" . | nindent 4 }}-authhandler
+  externalTrafficPolicy: {{ .Values.externalTrafficPolicy }}

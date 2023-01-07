@@ -101,6 +101,8 @@ ingress:
 
 # serviceAnnotations for pods with socket.io configure stickyness!
 serviceAnnotations: {}
+# for pods with socket.io, use Local if you have a loadbalancer 
+externalTrafficPolicy: Cluster
 
 # the ltihandler, handles authentification against the LTI and issues initial tokens
 ltihandler:
