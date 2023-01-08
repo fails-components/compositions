@@ -4,6 +4,10 @@ metadata:
   name: {{ include "fails-components.fullname" . }}-ltihandler
   labels:
     {{- include "fails-components.labels" . | nindent 4 }}-ltihandler
+  {{- with .Values.ltihandler.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
 spec:
   type: {{ .Values.ltihandler.service.type }}
   ports:

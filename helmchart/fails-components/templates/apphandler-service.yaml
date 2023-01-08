@@ -4,6 +4,10 @@ metadata:
   name: {{ include "fails-components.fullname" . }}-apphandler
   labels:
     {{- include "fails-components.labels" . | nindent 4 }}-apphandler
+  {{- with .Values.apphandler.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
 spec:
   type: {{ .Values.apphandler.service.type }}
   ports:

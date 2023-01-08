@@ -119,6 +119,7 @@ ltihandler:
   service:
     type: ClusterIP
     port: 80
+    annotations: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -142,6 +143,7 @@ apphandler:
   service:
     type: ClusterIP
     port: 80
+    annotations: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -165,6 +167,7 @@ staticserver:
   service:
     type: ClusterIP
     port: 80
+    annotations: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -201,6 +204,7 @@ notepadhandler:
   service:
     type: ClusterIP
     port: 80
+    annotations: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -224,6 +228,7 @@ noteshandler:
   service:
     type: ClusterIP
     port: 80
+    annotations: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -247,6 +252,7 @@ authhandler:
   service:
     type: ClusterIP
     port: 80
+    annotations: {}
   nodeSelector: {}
   tolerations: []
   affinity: {}

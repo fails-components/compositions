@@ -4,7 +4,7 @@ metadata:
   name: {{ include "fails-components.fullname" . }}-noteshandler
   labels:
     {{- include "fails-components.labels" . | nindent 4 }}-noteshandler
-  {{- with .Values.serviceAnnotations }}
+  {{- with .Values.noteshandler.service.annotations }}
   annotations:
     {{- toYaml . | nindent 8 }}
   {{- end }}
