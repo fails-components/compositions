@@ -4,7 +4,7 @@ metadata:
   name: {{ include "fails-components.fullname" . }}-staticserver
   labels:
     {{- include "fails-components.labels" . | nindent 4 }}-staticserver
-  {{- with .Values.statichandler.service.annotations }}
+  {{- with .Values.staticserver.service.annotations }}
   annotations:
     {{- toYaml . | nindent 8 }}
   {{- end }}
