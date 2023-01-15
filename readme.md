@@ -36,4 +36,7 @@ Please find in the docker-compose directory, instructions how to use fails durin
 ## Container compositions - Helm chart
 Please find in the helmchart directory, instructions how to use fails for larger installations using Kubernetes and Helm. The helm chart is not yet published and in an early alpha stage.
 
+## Migration script
+Please find in the migrateassets directory a node package/command, that migrates your data from file storage to object storage and vice versa. Can also be used for backuping from external object storages.
+
 

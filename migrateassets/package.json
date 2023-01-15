@@ -1,0 +1,44 @@
+{
+  "name": "migrateassets",
+  "version": "0.0.1",
+  "description": "Migrate data from/to object storage to directory storage",
+  "main": "migrate.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "start": "node migrate.js",
+    "dev": "nodemon -r dotenv/config migrate.js",
+    "2cloud": "node migrate.js 2cloud",
+    "2files": "node migrate.js 2files",
+    "syncmissing": "node migrate.js syncmissing",
+    "syncCloudToFiles": "node migrate.js syncCloudToFiles",
+    "syncFilesToCloud": "node migrate.js syncFilesToCloud",
+    "test": "run-s test:lint",
+    "test:lint": "eslint ."
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^4.1.0",
+    "gh-pages": "^3.1.0",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1"
+  },
+  "author": "Marten Richter",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@fails-components/security": "^1.2.0"
+  }
+}
