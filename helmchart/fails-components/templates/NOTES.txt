@@ -13,7 +13,7 @@ The LTI configuration for your LMS is as follows:
   http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}/lti/launch
 
 The lecture app for authentification can be accessed at:
-  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}/lecture
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}/static/lecture
 {{- end }}
 
 
