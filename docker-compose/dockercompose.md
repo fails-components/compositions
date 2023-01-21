@@ -23,6 +23,14 @@ FAILS_STATIC_SAVE_TYPE="fs"
 #FAILS_SWIFT_DOMAIN="DomainForYourStorage"
 #FAILS_SWIFT_PROJECT="ProjectForYourStorage"
 
+# if you use s3 storage set the following vales
+FAILS_S3_AK="AKFORKEYGENERATION"
+FAILS_S3_SK="SKFORKEYGENERATION"
+FAILS_S3_REGION="youregion"
+FAILS_S3_BUCKET="yourbucket"
+FAILS_S3_HOST="hostofyours3provider"
+FAILS_S3_ALTURL="alternativehostnameforyoururls"
+
 
 FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
 

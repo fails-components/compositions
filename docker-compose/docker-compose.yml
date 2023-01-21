@@ -49,6 +49,13 @@ services:
       - FAILS_SWIFT_PASSWORD
       - FAILS_SWIFT_DOMAIN
       - FAILS_SWIFT_PROJECT
+# needed if s3 is used
+      - FAILS_S3_AK
+      - FAILS_S3_SK
+      - FAILS_S3_REGION
+      - FAILS_S3_BUCKET
+      - FAILS_S3_HOST
+      - FAILS_S3_ALTURL
     volumes:
       - type: bind
 # directory to store the user uploaded files (images, pdf), backup required, if fs is used
@@ -92,6 +99,13 @@ services:
       - FAILS_SWIFT_CONTAINER
       - FAILS_SWIFT_KEY
       - FAILS_SWIFT_BASEURL
+# needed if s3 is used
+      - FAILS_S3_AK
+      - FAILS_S3_SK
+      - FAILS_S3_REGION
+      - FAILS_S3_BUCKET
+      - FAILS_S3_HOST
+      - FAILS_S3_ALTURL
 
   noteshandler: 
     image: "ghcr.io/fails-components/noteshandler:${FAILS_TAG:-master}"
@@ -115,6 +129,13 @@ services:
       - FAILS_SWIFT_CONTAINER
       - FAILS_SWIFT_KEY
       - FAILS_SWIFT_BASEURL
+# needed if s3 is used
+      - FAILS_S3_AK
+      - FAILS_S3_SK
+      - FAILS_S3_REGION
+      - FAILS_S3_BUCKET
+      - FAILS_S3_HOST
+      - FAILS_S3_ALTURL
 
   housekeeping: 
     image: "ghcr.io/fails-components/housekeeping:${FAILS_TAG:-master}"
@@ -140,6 +161,13 @@ services:
       - FAILS_SWIFT_PASSWORD
       - FAILS_SWIFT_DOMAIN
       - FAILS_SWIFT_PROJECT
+# needed if s3 is used
+      - FAILS_S3_AK
+      - FAILS_S3_SK
+      - FAILS_S3_REGION
+      - FAILS_S3_BUCKET
+      - FAILS_S3_HOST
+      - FAILS_S3_ALTURL
     volumes:
       - type: bind
 # directory to store the user uploaded files (images, pdf), backup required
