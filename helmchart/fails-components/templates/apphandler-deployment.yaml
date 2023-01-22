@@ -68,6 +68,7 @@ spec:
                   optional: false               
             - name: FAILS_MONGO_URL
               value: "mongodb://{{ .Values.mongo.user }}:$(FAILS_MONGO_PASSWORD)@{{ .Values.mongo.mongoConnection }}"
+            {{- if  eq .Values.storage "swift" }}
             # needed if swift is used
             - name: FAILS_SWIFT_KEY
               valueFrom:
@@ -94,7 +95,27 @@ spec:
             - name: FAILS_SWIFT_DOMAIN
               value: "{{ .Values.swift.domain }}" 
             - name: FAILS_SWIFT_PROJECT
-              value: "{{ .Values.swift.project }}"    
+              value: "{{ .Values.swift.project }}"
+            {{- end }}
+            {{- if  eq .Values.storage "s3" }}    
+              # needif s3 is used
+            - name: FAILS_S3_AK
+              value: "{{ .Values.s3.AK }}"
+            - name: FAILS_S3_SK
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.s3.secretName }}
+                  key: {{ .Values.s3.secretKeySK }}
+                  optional: false
+            - name: FAILS_S3_REGION
+              value: "{{ .Values.s3.region }}"
+            - name: FAILS_S3_BUCKET
+              value: "{{ .Values.s3.bucket }}"
+            - name: FAILS_S3_HOST
+              value: "{{ .Values.s3.host }}"
+            - name: FAILS_S3_ALTURL
+              value: "{{ .Values.s3.alturl }}"
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080

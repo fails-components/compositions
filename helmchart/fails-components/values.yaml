@@ -27,6 +27,9 @@ keys:
   secretName: "fails-secrets"
   secretKey: "keys_secret"
 
+#storgae method, swift or s3
+storage: "s3"
+
 # swift container for storing assets
 swift:
 #  baseurl: "https://storage.yourprovider.net"
@@ -34,6 +37,15 @@ swift:
 #  container: "failsassets"
   secretName: "fails-secrets"
   secretKeySwiftKey: "swift_key"
+
+s3:
+#  AK: "yourak"
+  secretName: "fails-secrets"
+  secretKeySK: "s3_sk_key"
+#  region: "yourregion"
+#  bucket: "yourbucket"
+#  host: "yourstorage.com"
+#  alturl: "alternativeurl"
 
 #  username: "OpenShiftUserName"
 #  secretKeySwiftPassword: "swift_password"
