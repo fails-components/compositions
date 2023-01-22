@@ -45,9 +45,9 @@ spec:
                   key: {{ .Values.keys.secretKey }}
                   optional: false
             - name: FAILS_STATIC_WEBSERV_TYPE
-              value: "openstackswift"
+              value: {{ .Values.storage }}
             - name: FAILS_STATIC_SAVE_TYPE
-              value: "openstackswift"
+              value: {{ .Values.storage }}
             - name: FAILS_STATIC_SECRET
               value: "dummy"
             - name:  REDIS_HOST
