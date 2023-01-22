@@ -39,6 +39,6 @@
   "author": "Marten Richter",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@fails-components/security": "^1.2.0"
+    "@fails-components/security": "^1.3.0"
   }
 }

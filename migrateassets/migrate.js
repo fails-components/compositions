@@ -16,6 +16,13 @@ const fileassets = new FailsAssets({
     password: process.env.FILE_SWIFT_PASSWORD,
     domain: process.env.FILE_SWIFT_DOMAIN,
     project: process.env.FILE_SWIFT_PROJECT
+  },
+  s3: {
+    AK: process.env.FILE_S3_AK,
+    SK: process.env.FILE_S3_SK,
+    region: process.env.FILE_S3_REGION,
+    bucket: process.env.FILE_S3_BUCKET,
+    host: process.env.FILE_S3_HOST
   }
 })
 
@@ -33,6 +40,13 @@ const cloudassets = new FailsAssets({
     password: process.env.CLOUD_SWIFT_PASSWORD,
     domain: process.env.CLOUD_SWIFT_DOMAIN,
     project: process.env.CLOUD_SWIFT_PROJECT
+  },
+  s3: {
+    AK: process.env.CLOUD_S3_AK,
+    SK: process.env.CLOUD_S3_SK,
+    region: process.env.CLOUD_S3_REGION,
+    bucket: process.env.CLOUD_S3_BUCKET,
+    host: process.env.CLOUD_S3_HOST
   }
 })
 
@@ -107,28 +121,51 @@ const globalfunc = async () => {
   }
   if (uploadFiles) {
     console.log('Start uploading files to Cloud')
-    for (let i = 0; i < funique.length; i += 10) {
-      const portion = funique.slice(i, i + 10)
-      await Promise.all(
-        portion.map(async (el) => {
-          console.log('upload file', el.id)
-          const stream = await fileassets.readFileStream(el.id, el.mime)
-          cloudassets.saveFile(stream, el.id, el.mime)
-        })
-      )
+    for (let i = 0; i < funique.length; i += 1) {
+      const portion = funique.slice(i, i + 1)
+      try {
+        await Promise.all(
+          portion.map(async (el) => {
+            console.log('upload file', el.id)
+            let mime = el.mime
+            let mimecall = mime
+            if (!mime)
+              mimecall = (nmime) => {
+                mime = nmime
+              }
+            const stream = await fileassets.readFileStream(el.id, mimecall)
+            cloudassets.saveFile(stream, el.id, mime, el.size)
+          })
+        )
+      } catch (error) {
+        console.log('uploading file failed', error)
+        throw error
+      }
     }
   }
   if (downloadFiles) {
     console.log('Start downloading files to Cloud')
-    for (let i = 0; i < cunique.length; i += 10) {
-      const portion = cunique.slice(i, i + 10)
-      await Promise.all(
-        portion.map(async (el) => {
-          console.log('download file', el.id)
-          const stream = await cloudassets.readFileStream(el.id, el.mime)
-          fileassets.saveFile(stream, el.id, el.mime)
-        })
-      )
+    for (let i = 0; i < cunique.length; i += 1) {
+      const portion = cunique.slice(i, i + 1)
+      try {
+        await Promise.all(
+          portion.map(async (el) => {
+            console.log('download file', el.id)
+            let mime = el.mime
+            let mimecall = mime
+            if (!mime) {
+              mimecall = (nmime) => {
+                mime = nmime
+              }
+            }
+            const stream = await cloudassets.readFileStream(el.id, mimecall)
+            fileassets.saveFile(stream, el.id, el.mime)
+          })
+        )
+      } catch (error) {
+        console.log('downloading file failed', error)
+        throw error
+      }
     }
   }
   if (delUniqFiles) {
@@ -141,7 +178,7 @@ const globalfunc = async () => {
           console.log('delete file', el.id)
           await fileassets.shadelete(
             el.id,
-            fileassets.mimeToExtensionwoDot(el.mime)
+            el.mime ? fileassets.mimeToExtensionwoDot(el.mime) : ''
           )
         })
       )
@@ -157,7 +194,7 @@ const globalfunc = async () => {
           console.log('delete cloud object', el.id)
           await cloudassets.shadelete(
             el.id,
-            cloudassets.mimeToExtensionwoDot(el.mime)
+            el.mime ? fileassets.mimeToExtensionwoDot(el.mime) : ''
           )
         })
       )

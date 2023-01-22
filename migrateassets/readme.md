@@ -15,7 +15,8 @@ FILEDIR="C:\\PrivateDaten\\Projekte\\failscomponents\\failslib\\apphandler\\file
 
 
 
-# where to save your static file, "fs" (default) for filesystem, or "openstackswift" usually "openstack swift"
+# where to save your static file, "fs" (default) for filesystem,"s3",
+# or "openstackswift" usually "openstack swift"
 CLOUD_TYPE="openstackswift"
 
 # If you use swift storage set the following variables
@@ -28,6 +29,13 @@ CLOUD_SWIFT_USERNAME="your openstack/swift username"
 CLOUD_SWIFT_PASSWORD="password for your openstack/swift account"
 CLOUD_SWIFT_DOMAIN="domainname"
 CLOUD_SWIFT_PROJECT="projectid"
+
+#if you use S3 storage set the following variables
+CLOUD_S3_AK="ACCESSKEY"
+CLOUD_S3_SK="SECUREKEY"
+CLOUD_S3_REGION="region"
+CLOUD_S3_BUCKET="bucketname"
+CLOUD_S3_HOST="s3.at.your.provider.com"
 
 # note all parameters as for the file case are also supported,
 # so that in princple cloud2cloud and file2file transfer are possible as well
