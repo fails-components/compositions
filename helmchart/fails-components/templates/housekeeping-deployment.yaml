@@ -92,8 +92,9 @@ spec:
               value: "{{ .Values.swift.domain }}" 
             - name: FAILS_SWIFT_PROJECT
               value: "{{ .Values.swift.project }}"
+            {{- end }}
             {{- if  eq .Values.storage "s3" }}    
-              # needif s3 is used
+              # needed if s3 is used
             - name: FAILS_S3_AK
               value: "{{ .Values.s3.AK }}"
             - name: FAILS_S3_SK

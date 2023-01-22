@@ -27,7 +27,7 @@ keys:
   secretName: "fails-secrets"
   secretKey: "keys_secret"
 
-#storgae method, swift or s3
+#storage method for assets, swift or s3
 storage: "s3"
 
 # swift container for storing assets

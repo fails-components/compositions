@@ -82,7 +82,7 @@ spec:
               value: "{{ .Values.swift.baseurl }}"     
             {{- end }}
             {{- if  eq .Values.storage "s3" }}    
-              # needif s3 is used
+              # needed if s3 is used
             - name: FAILS_S3_AK
               value: "{{ .Values.s3.AK }}"
             - name: FAILS_S3_SK
