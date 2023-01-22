@@ -23,7 +23,7 @@ FAILS_STATIC_SAVE_TYPE="fs"
 #FAILS_SWIFT_DOMAIN="DomainForYourStorage"
 #FAILS_SWIFT_PROJECT="ProjectForYourStorage"
 
-# if you use s3 storage set the following vales
+# if you use s3 storage set the following values
 FAILS_S3_AK="AKFORKEYGENERATION"
 FAILS_S3_SK="SKFORKEYGENERATION"
 FAILS_S3_REGION="youregion"
