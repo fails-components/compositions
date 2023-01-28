@@ -62,8 +62,8 @@ const globalfunc = async () => {
   cassets.forEach((el) => cset.add(el.id))
   fassets.forEach((el) => fset.add(el.id))
 
-  console.log('cloud assets', cassets)
-  console.log('file assets', fassets)
+  // console.log('cloud assets', cassets)
+  // console.log('file assets', fassets)
 
   // now we filter the unique records out
   const cunique = cassets.filter((el) => !fset.has(el.id))
@@ -144,7 +144,7 @@ const globalfunc = async () => {
     }
   }
   if (downloadFiles) {
-    console.log('Start downloading files to Cloud')
+    console.log('Start downloading files to files')
     for (let i = 0; i < cunique.length; i += 1) {
       const portion = cunique.slice(i, i + 1)
       try {
