@@ -16,15 +16,15 @@ nameOverride: ""
 fullnameOverride: ""
 
 app:
-  config: {}
+  config: ""
 # Json config for messages or support contacts
-#  config: |
-#    {"support": 
-#    { "text": "Please contact our support at", 
-#    "url": "https://yoursupport.site"}, 
-#    "maintenance": 
-#    {"message": "The system is going for maintenace at"}
-#    } 
+#  config: "
+#    {\"support\": 
+#    { \"text\": \"Please contact our support at\", 
+#    \"url": \"https://yoursupport.site\"}, 
+#    \"maintenance\": 
+#    {\"message\": \"The system is going for maintenace at\"}
+#    }\" 
 
 lmsconfig:
   # configure your lms
