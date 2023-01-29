@@ -182,6 +182,7 @@ services:
     environment:
 # secret for generation of generation of securing hashes for user uploaded content
       - FAILS_STATIC_SECRET
+      - FAILS_APP_CONFIG_JSON
     volumes:
       - type: bind
 # directory to store the user uploaded files (images, pdf), backup required

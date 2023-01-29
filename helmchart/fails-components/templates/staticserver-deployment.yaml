@@ -37,6 +37,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repositoryprefix }}staticserver-noassets:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }} 
+          env:
+            - name: FAILS_APP_CONFIG_JSON
+              value: "{{ .Values.app.config }}"
           ports:
             - name: http
               containerPort: 80

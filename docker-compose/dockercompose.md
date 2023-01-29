@@ -33,6 +33,9 @@ FAILS_S3_ALTURL="alternativehostnameforyoururls"
 
 
 FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
+# you can pipe custom support contact info and messages into the system for the lms app
+FAILS_APP_CONFIG_JSON="{\"support\": { \"text\": \"Please contact our support at\", \"url\": \"https://fabolous-support.de\"}, \"maintenance\": {\"message\": \"The system is going for maintenace at\"}}"
+
 
 REDIS_DATA_DIR="/path/to/your/redis/db"
 REDIS_PASS="yourredispassword"

@@ -15,6 +15,16 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+app:
+# Json config for messages or support contacts
+#  config: |
+#    {"support": 
+#    { "text": "Please contact our support at", 
+#    "url": "https://yoursupport.site"}, 
+#    "maintenance": 
+#    {"message": "The system is going for maintenace at"}
+#    } 
+
 lmsconfig:
   # configure your lms
   # list: "TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
