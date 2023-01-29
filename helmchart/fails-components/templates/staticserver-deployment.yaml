@@ -17,8 +17,9 @@ spec:
       {{- include "fails-components.selectorLabels" . | nindent 6 }}-staticserver
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+      {{- with .Values.podAnnotations }}
+        rollme: {{ randAlphaNum 5 | quote }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
