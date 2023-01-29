@@ -16,6 +16,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 app:
+  config: {}
 # Json config for messages or support contacts
 #  config: |
 #    {"support": 
