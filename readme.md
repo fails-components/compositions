@@ -32,6 +32,7 @@ FAILS is licensed via GNU Affero GPL version 3.0
 
 ## Container compositions - Docker Compose
 Please find in the docker-compose directory, instructions how to use fails during development or for small installations using docker compose.
+It also include a rough overview of the fails architecture.
 
 ## Container compositions - Helm chart
 Please find in the helmchart directory, instructions how to use fails for larger installations using Kubernetes and Helm. The helm chart is not yet published and in an early alpha stage.
