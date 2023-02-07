@@ -68,9 +68,10 @@ An nginx based container serving files under /static/.
 This includes the main apps 
 - /static/app/ inside the LTI and 
 - /static/lecture during the lecture
+
 as well as open source licenses
 - /static/oss/
-and optionally serves assets using secured links with limited validity.
+and optionally serves assets using secured links with limited temporal validity.
 
 
 
