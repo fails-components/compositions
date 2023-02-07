@@ -151,6 +151,3 @@ You can fire the fails server up (or restart with updated containers) with:
 docker compose up -d
 ```
 if you have a working docker installation with docker compose.
-
-## Installation
-For installation instructions for a containerized envoironment, please see the [fails-components/compositions](https://github.com/fails-components/compositions "fails-components/compositions") repository.
