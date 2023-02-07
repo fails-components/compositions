@@ -63,6 +63,11 @@ It is the same as notepadhandler but for students.
 So it is read only for lecture notes and only managed additionally student activities such as polling, chat questions etc.
 Separting instructors and students allows to control the container resources for instructors and students independently, which prevents disruptin of services for instructors due to many students using the software.
 
+### housekeeping
+Transfer lectures from redis to mongodb once a minutes. It also deletes lectures from redis.
+It is also responsible for deleting lectures and assests from mongodb or assets, if the lecture owner and the LMS activity both are deleted.
+Once container should be sufficient in any case.
+
 ### staticserver
 An nginx based container serving files under /static/.
 This includes the main apps 
