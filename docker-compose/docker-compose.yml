@@ -17,6 +17,7 @@ services:
       - FAILS_LMS_LIST
 # white list of courses, that have access to the service, useful for limited release
       - FAILS_LMS_COURSE_WHITELIST
+      - FAILS_ONLY_LEARNERS
       - REDIS_HOST=redis
       - REDIS_PASS
       - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
