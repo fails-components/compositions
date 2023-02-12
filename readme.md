@@ -10,34 +10,35 @@
 
 
 This package is part of FAILS.
-A web based system developed out of university lectures.
-Bascially it is a continous pen based notepad editor  delivering **electronic chalk**  to several beamers in the lecture hall.
+A web-based system developed out of university lectures.
+It is a continuous pen-based notepad editor delivering **electronic chalk** to several beamers in the lecture hall.
 
 The students can follow the lecture also on their tablets and notebooks and can scroll independently and ask questions to the lecturer using a chat function.
-Furthermore polls can be conducted.
+Furthermore, polls can be conducted.
 
-After the lecture is completed a pdf can be downloaded at anytime.
+After the lecture has been completed a pdf can be downloaded at any time.
 
 FAILS components is completely integrated using LTI into LMS such as Moodle.
 
-It is the reincarnation of a system, we are using at our theoretical physics institute for several years. Now *initial development* is almost complete, and the software is tested in current winter term by few docents.
+It is the reincarnation of a system, we are using at our theoretical physics institute for several years. Now *initial development* is almost complete, and the software is now rolling out next term university wide.
 
 The system is written with containerization and scalability in mind.
 
-Currently it is advised to **not use** FAILS in a large productive environment.
-However, you can **use** it for small groups of lectures.
-Feedback on error/issues is appreciated via githubs functions.
+Feedback on errors/issues is appreciated via github's functions.
 
 FAILS is licensed via GNU Affero GPL version 3.0 
 
 ## Container compositions - Docker Compose
-Please find in the docker-compose directory, instructions how to use fails during development or for small installations using docker compose.
-It also include a rough overview of the fails architecture.
+Please find in the docker-compose directory, instructions on how to use fails during development or for small installations using docker compose.
+It also includes a rough overview of the fails architecture.
 
 ## Container compositions - Helm chart
-Please find in the helmchart directory, instructions how to use fails for larger installations using Kubernetes and Helm. The helm chart is not yet published and in an early alpha stage.
+Please find in the helm chart directory, instructions on how to use fails for larger installations using Kubernetes and Helm. The helm chart is not yet published and is in an early alpha stage.
 
 ## Migration script
-Please find in the migrateassets directory a node package/command, that migrates your data from file storage to object storage and vice versa. Can also be used for backuping from external object storages.
+Please find in the migrate assets directory a node package/command, that migrates your data from file storage to object storage and vice versa. Can also be used for backup from external object storages.
+
+## Introductory video
+You can find a set of introductory videos on our youtube channel [FAILS components] (https://www.youtube.com/@fails-components)
 
 
