@@ -14,6 +14,7 @@ Both handlers are included as separate containers. Only Mongo DB needs are backu
 Additionally, assets need to be stored. Assets are user-uploaded data such as pictures or pdfs, which serve as background.
 Assets can be stored on a directory included in the Docker compose via a bind mount and served by the nginx container.
 Alternatively, assets can be stored in an object storage service, that nowadays almost every cloud provider offers. (Currently, Openswift and S3 storage are supported. Fails was tested on Ovh (Openswift and S3) and OpenTelekomCloud(S3)).
+Please find in the migrate assets directory a node package/command, that migrates your data from file storage to object storage and vice versa. Can also be used for backup from external object storage.
 
 HTTPs traffic is routed by a HA proxy, which is built as separate container from the `loadbalancer` directory, which contains HA Proxy's config file.
 
