@@ -16,7 +16,7 @@ Assets can be stored on a directory included in the Docker compose via a bind mo
 Alternatively, assets can be stored in an object storage service, that nowadays almost every cloud provider offers. (Currently, Openswift and S3 storage are supported. Fails was tested on Ovh (Openswift and S3) and OpenTelekomCloud(S3)).
 Please find in the migrate assets directory a node package/command, that migrates your data from file storage to object storage and vice versa. Can also be used for backup from external object storage.
 
-HTTPs traffic is routed by a HA proxy, which is built as separate container from the `loadbalancer` directory, which contains HA Proxy's config file.
+HTTPs traffic is routed by a HA proxy, which is built as a separate container from the `loadbalancer` directory, which contains HA Proxy's config file.
 
 The handler's microservices in detail:
 ### ltihandler
@@ -66,8 +66,12 @@ Separating instructors and students allows controlling the container resources f
 
 ### housekeeping
 Transfer lectures from redis to MongoDB once a minute. It also deletes lectures from redis.
-It is also responsible for deleting lectures and assets from MongoDB or assets, if the lecture owner and the LMS activity both are deleted.
+It is also responsible for deleting lectures and assets from MongoDB or assets if the lecture owner and the LMS activity both are deleted.
 Once the container should be sufficient in any case.
+
+### avsdispatcher
+The avs dispatcher collects information from your avs routers, to connect the browser clients with them.
+You need to assign clients and routers to different regions. 
 
 ### staticserver
 An nginx-based container serving files under /static/.
@@ -133,6 +137,10 @@ MONGO_USER="usernameforfailsinmongodb"
 MONGO_PASS="passwordforthisuser"
 #MONGO_OPTIONS="--wiredTigerCacheSizeGB 0.5"
 
+# the regions for your avs router FIXME Add documentation on the format
+#REGIONS="test|SHAREDSECRETWITHROUTERS|172.18.0.0/24||"
+REGIONS="test|SHAREDSECRETWITHROUTER|||"
+
 # must also be provided, if not stored on file system, but then the dir can be empty
 ASSETS_DATA_DIR="/path/to/your/users/assets"
 
@@ -145,7 +153,7 @@ FAILS_HTTP_PORT=80
 FAILS_HTTPS_PORT=443
 
 ```
-*FAILS_LMS_COURSE_WHITELIST* should only be used, if you want to use a whitelist, this is perfect for a limited beta test. *FAILS_HTTP_PORT* and *FAILS_HTTPS_PORT* should only be used, if they differ from the default ports.
+*FAILS_LMS_COURSE_WHITELIST* should only be used, if you want to use a whitelist, this is perfect for a limited beta test. *FAILS_HTTP_PORT* and *FAILS_HTTPS_PORT* should only be used if they differ from the default ports.
 You can find more details about the configuration variables in the *docker-compose.yml* file or in the source code of the components.
 
 You can pull and build the container images (also updates the container software):

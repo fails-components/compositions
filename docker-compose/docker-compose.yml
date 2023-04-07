@@ -175,6 +175,24 @@ services:
         source: ${ASSETS_DATA_DIR}
         target: /usr/src/housekeeping/files
 
+  avsdispatcher: 
+    image: "ghcr.io/fails-components/avsdispatcher:${FAILS_TAG:-master}"
+    restart: always
+    expose:
+      - "8080"
+    depends_on:
+      - "redis"
+      - "mongo"
+    environment:
+# secret for generation of jwt keys
+      - FAILS_KEYS_SECRET
+# secret for generation of generation of securing hashes for user uploaded content
+      - FAILS_STATIC_SECRET
+      - REDIS_HOST=redis
+      - REDIS_PASS
+      - FAILS_MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASS}@mongo:27017
+      - REGIONS
+
   staticserver:
     image: "ghcr.io/fails-components/staticserver:${FAILS_TAG:-master}"
     restart: always
