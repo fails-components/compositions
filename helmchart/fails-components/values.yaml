@@ -38,10 +38,6 @@ keys:
   secretName: "fails-secrets"
   secretKey: "keys_secret"
 
-avs: 
-  secretName: "fails-secrets"
-  secretKeyRegion: "avs_regions"
-
 #storage method for assets, openstackswift or s3
 storage: "s3"
 
@@ -150,6 +146,32 @@ ltihandler:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+
+# the avsdispatcher, dispatches the audio video screen routers
+avs: 
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  service:
+    type: ClusterIP
+    port: 80
+    annotations: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  secretName: "fails-secrets"
+  secretKeyRegion: "avs_regions"
 
 # the apphandler, handles the app inside the LTI
 apphandler:
