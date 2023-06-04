@@ -148,7 +148,7 @@ ltihandler:
   affinity: {}
 
 # the avsdispatcher, dispatches the audio video screen routers
-avs: 
+avsdispatcher: 
   replicaCount: 1
   autoscaling:
     enabled: false

@@ -42,8 +42,8 @@ spec:
             - name:  REGIONS
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.avs.secretName }}
-                  key: {{ .Values.avs.secretKeyRegion }}
+                  name: {{ .Values.avsdispatcher.secretName }}
+                  key: {{ .Values.avsdispatcher.secretKeyRegion }}
                   optional: false
             - name: FAILS_KEYS_SECRET
               valueFrom:
