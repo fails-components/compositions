@@ -69,6 +69,18 @@ spec:
               serviceName: {{ $fullName }}-apphandler
               servicePort: {{ $appSvcPort }}
               {{- end }}
+          - path: /avs/
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-avsdispatcher
+                port:
+                  number: {{ $appSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-avsdispatcher
+              servicePort: {{ $appSvcPort }}
+              {{- end }}
 # default route
           - path: /
             pathType: Prefix

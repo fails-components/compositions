@@ -38,6 +38,10 @@ keys:
   secretName: "fails-secrets"
   secretKey: "keys_secret"
 
+avs: 
+  secretName: "fails-secrets"
+  secretKeyRegion: "avs_regions"
+
 #storage method for assets, openstackswift or s3
 storage: "s3"
 

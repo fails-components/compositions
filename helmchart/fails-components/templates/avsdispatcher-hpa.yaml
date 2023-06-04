@@ -1,0 +1,28 @@
+{{- if .Values.avsdispatcher.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "fails-components.fullname" . }}-avsdispatcher
+  labels:
+    {{- include "fails-components.labels" . | nindent 4 }}-avsdispatcher
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "fails-components.fullname" . }}-avsdispatcher
+  minReplicas: {{ .Values.avsdispatcher.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.avsdispatcher.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.avsdispatcher.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.avsdispatcher.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.avsdispatcher.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.avsdispatcher.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}
