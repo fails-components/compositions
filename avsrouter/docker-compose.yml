@@ -17,9 +17,9 @@ services:
       - avsconfigdir:/usr/src/avsrouter/config:rw   
     restart: always
     ports:
-      - "443"
-      - "443/udp"
-      - "80"
+      - "443:443"
+      - "443:443/udp"
+      - "80:80"
     healthcheck:
       test: curl --fail http://localhost/health || exit 1
       interval: 60s
