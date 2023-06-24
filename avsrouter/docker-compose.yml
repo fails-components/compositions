@@ -16,7 +16,7 @@ services:
       - certdir:/usr/src/avsrouter/certs:ro
       - avsconfigdir:/usr/src/avsrouter/config:rw   
     restart: always
-    expose:
+    ports:
       - "443"
       - "443/udp"
       - "80"
