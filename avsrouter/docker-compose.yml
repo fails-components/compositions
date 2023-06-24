@@ -1,5 +1,5 @@
 version: "3.9"
-volume:
+volumes:
   acmeroot:
 
   certdir:
@@ -27,10 +27,10 @@ services:
     environment:
 # region config, needs to be set externally, aswell as AVSDOMAIN
       - AVSCONFIG
-      - AVSROUTERURL=https://${AVSDOMAIN}/avfails'
+      - AVSROUTERURL=https://${AVSDOMAIN}/avfails
       - AVSROUTERWSURL=ws://${AVSDOMAIN}/avfails
-      - AVSMAXCLIENTS=${AVSMAXCLIENTS:20}
-      - AVSMAXREALMS=${AVSMAXREALMS:5}
+      - AVSMAXCLIENTS=${AVSMAXCLIENTS:-20}
+      - AVSMAXREALMS=${AVSMAXREALMS:-5}
       - AVSROUTERHOST='0.0.0.0'
       - AVSROUTERPORT=443
 # filename for key and cert fopr http1, checked all 5 sec for changes
