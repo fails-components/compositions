@@ -57,7 +57,7 @@ services:
       then
         echo "Obtain initial certificate!";
         certbot --webroot -w /var/www/html -d ${AVSDOMAIN}  --non-interactive --agree-tos
-           --register-unsafely-without-email ${STAGING:--staging};
+           --register-unsafely-without-email ${STAGING:---staging};
       fi;
       while :;
       do
