@@ -34,7 +34,7 @@ services:
       - AVSROUTERWSURL=ws://${AVSDOMAIN}/avfails
       - AVSMAXCLIENTS=${AVSMAXCLIENTS:-20}
       - AVSMAXREALMS=${AVSMAXREALMS:-5}
-      - AVSROUTERHOST='0.0.0.0'
+      - AVSROUTERHOST=0.0.0.0
       - AVSROUTERPORT=443
 # filename for key and cert fopr http1, checked all 5 sec for changes
       - AVSROUTERKEYPEM=/usr/src/avsrouter/certs/live/${AVSDOMAIN}/privkey.pem
