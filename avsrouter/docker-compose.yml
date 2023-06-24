@@ -52,7 +52,7 @@ services:
       - certbotdata:/var/lib/letsencrypt:rw
       - certdir:/etc/letsencrypt:rw
       - acmeroot:/var/www/html:rw
-    entrypoint: /bin/bash -c 'trap exit TERM; 
+    entrypoint: /bin/sh -c 'trap exit TERM; 
       if [ ! -f /etc/letsencrypt/certs/live/${AVSDOMAIN}/privkey.pem ];
       then
         echo "Obtain initial certificate!";
