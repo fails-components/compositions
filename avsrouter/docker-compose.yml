@@ -1,0 +1,68 @@
+version: "3.9"
+volume:
+  acmeroot:
+
+  certdir:
+
+  certbotdata:
+
+services:
+  avsrouter:
+    image: "ghcr.io/fails-components/avsrouter:${FAILS_TAG:-master}"
+    volumes:
+      - acmeroot:/usr/src/avsrouter/challenges:ro
+      - certdir:/usr/src/avsrouter/certs:ro   
+    restart: always
+    expose:
+      - "443"
+      - "443/udp"
+      - "80"
+    healthcheck:
+      test: curl --fail http://localhost/health || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    
+    environment:
+# region config, needs to be set externally, aswell as AVSDOMAIN
+      - AVSCONFIG
+      - AVSROUTERURL=https://${AVSDOMAIN}/avfails'
+      - AVSROUTERWSURL=ws://${AVSDOMAIN}/avfails
+      - AVSMAXCLIENTS=${AVSMAXCLIENTS:20}
+      - AVSMAXREALMS=${AVSMAXREALMS:5}
+      - AVSROUTERHOST='0.0.0.0'
+      - AVSROUTERPORT=443
+# filename for key and cert fopr http1, checked all 5 sec for changes
+      - AVSROUTERKEYPEM=/usr/src/avsrouter/certs/live/${AVSDOMAIN}/privkey.pem
+      - AVSROUTERCERTPEM=/usr/src/avsrouter/certs/live/${AVSDOMAIN}/fullchain.pem
+# dirname for serving acme challenges
+      - AVSROUTERACMEHTTP1DIR=/usr/src/avsrouter/challenges
+#address the server binds to
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      avsrouter:
+        condition: service_healthy
+    restart: always
+    volumes:
+      - certbotdata:/var/lib/letsencrypt:rw
+      - certdir:/etc/letsencrypt:rw
+      - acmeroot:/var/www/html:rw
+    entrypoint: /bin/bash -c 'trap exit TERM; 
+      if [ ! -f /etc/letsencrypt/certs/live/${AVSDOMAIN}/privkey.pem ];
+      then
+        echo "Obtain initial certificate!";
+        certbot --webroot -w /var/www/html -d ${AVSDOMAIN}  --non-interactive --agree-tos
+           --register-unsafely-without-email ${STAGING:--staging};
+      fi;
+      while :;
+      do
+        echo "Check certificate renewal"; 
+        certbot renew;
+        echo "Sleep for 12 h"; 
+        sleep 12h & wait $${!};
+      done;' 
+
+
+
