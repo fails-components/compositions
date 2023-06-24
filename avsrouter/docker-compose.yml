@@ -6,12 +6,15 @@ volumes:
 
   certbotdata:
 
+  avsconfigdir:
+
 services:
   avsrouter:
     image: "ghcr.io/fails-components/avsrouter:${FAILS_TAG:-master}"
     volumes:
       - acmeroot:/usr/src/avsrouter/challenges:ro
-      - certdir:/usr/src/avsrouter/certs:ro   
+      - certdir:/usr/src/avsrouter/certs:ro
+      - avsconfigdir:/usr/src/avsrouter/config:rw   
     restart: always
     expose:
       - "443"
