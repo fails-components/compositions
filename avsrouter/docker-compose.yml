@@ -41,7 +41,8 @@ services:
       - AVSROUTERCERTPEM=/usr/src/avsrouter/certs/live/${AVSDOMAIN}/fullchain.pem
 # dirname for serving acme challenges
       - AVSROUTERACMEHTTP1DIR=/usr/src/avsrouter/challenges
-#address the server binds to
+# time zones to find suitable restart times for certificate rotations defaults to Europe/Berlin      
+      - AVSTIMEZONE
   certbot:
     image: certbot/certbot
     depends_on:
