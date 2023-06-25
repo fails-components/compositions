@@ -1,0 +1,30 @@
+#cloud-config
+write_files:
+- content: |
+    # configure your avs server instance
+    # first nameofyourcluster|secret|URL of the dispatcher
+    AVSCONFIG=yourclustername|sharedsecretwithdispatcher|https://urlofyourfailsinstallation/avs
+    # the domain name or better hostname of your router
+    AVSDOMAIN=hostnameofyourrouter.example.com
+    # optionally you can set the timezone, defaults to Europe/Berlin, required to find a restart time in the night
+    # AVSTIMEZONE=
+    #turns of staging, comment if you would like to use cert-bot staging environment
+    STAGING=
+  path: /home/linux/.env
+
+repo_update: true
+repo_upgrade: all
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+
+runcmd: 
+  - curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -   
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+  - apt-get update -y && apt-get install docker-ce docker-ce-cli docker-compose-plugin -y 
+  - wget -O /home/linux/docker-compose.yml https://github.com/fails-components/compositions/raw/master/avsrouter/docker-compose.yml
+  - cd /home/linux/ && docker compose pull && docker compose up -d
