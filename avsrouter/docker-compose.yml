@@ -31,7 +31,7 @@ services:
 # region config, needs to be set externally, aswell as AVSDOMAIN
       - AVSCONFIG
       - AVSROUTERURL=https://${AVSDOMAIN}/avfails
-      - AVSROUTERWSURL=ws://${AVSDOMAIN}/avfails
+      - AVSROUTERWSURL=wss://${AVSDOMAIN}/avfails
       - AVSMAXCLIENTS=${AVSMAXCLIENTS:-20}
       - AVSMAXREALMS=${AVSMAXREALMS:-5}
       - AVSROUTERHOST=0.0.0.0
