@@ -47,6 +47,8 @@ spec:
                   optional: false
             - name: FAILS_STATIC_WEBSERV_TYPE
               value: {{ .Values.storage }}
+            - name: FAILS_STATIC_SAVE_TYPE
+              value: {{ .Values.storage }}
             - name: FAILS_STATIC_SECRET
               value: "dummy"
             - name:  REDIS_HOST
@@ -80,7 +82,21 @@ spec:
             - name: FAILS_SWIFT_CONTAINER
               value: "{{ .Values.swift.container }}"
             - name: FAILS_SWIFT_BASEURL
-              value: "{{ .Values.swift.baseurl }}"     
+              value: "{{ .Values.swift.baseurl }}"
+            - name: FAILS_SWIFT_AUTH_BASEURL
+              value: "{{ .Values.swift.authbaseurl }}" 
+            - name: FAILS_SWIFT_USERNAME
+              value: "{{ .Values.swift.username }}" 
+            - name: FAILS_SWIFT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.swift.secretName }}
+                  key: {{ .Values.swift.secretKeySwiftPassword }}
+                  optional: false
+            - name: FAILS_SWIFT_DOMAIN
+              value: "{{ .Values.swift.domain }}" 
+            - name: FAILS_SWIFT_PROJECT
+              value: "{{ .Values.swift.project }}"     
             {{- end }}
             {{- if  eq .Values.storage "s3" }}    
               # needed if s3 is used
