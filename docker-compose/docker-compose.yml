@@ -113,6 +113,11 @@ services:
       - FAILS_S3_BUCKET
       - FAILS_S3_HOST
       - FAILS_S3_ALTURL
+    volumes:
+      - type: bind
+# directory to store the user uploaded files (images, pdf), backup required, if fs is used
+        source: ${ASSETS_DATA_DIR}
+        target: /usr/src/notepadhandler/files
 
   noteshandler: 
     image: "ghcr.io/fails-components/noteshandler:${FAILS_TAG:-master}"
