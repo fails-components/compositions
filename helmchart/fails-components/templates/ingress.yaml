@@ -130,6 +130,18 @@ spec:
               serviceName: {{ $fullName }}-staticserver
               servicePort: {{ $staticSvcPort }}
               {{- end }}
+          - path: /static/jupyter
+            pathType: Prefix
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-staticserver
+                port:
+                  number: {{ $staticSvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-staticserver
+              servicePort: {{ $staticSvcPort }}
+              {{- end }}
           - path: /notepad.io/
             pathType: Prefix
             backend:
