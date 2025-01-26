@@ -42,6 +42,9 @@ spec:
             - name: FAILS_APP_CONFIG_JSON
               value: |
               {{ .Values.app.config | indent 2}}
+            - name: FAILS_JUPYTER_PROXY_CONFIG
+              value: |
+              {{ .Values.jupyter.proxy | indent 2}}
           ports:
             - name: http
               containerPort: 80

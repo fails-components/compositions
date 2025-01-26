@@ -24,7 +24,14 @@ app:
 #    \"url": \"https://yoursupport.site\"}, 
 #    \"maintenance\": 
 #    {\"message\": \"The system is going for maintenace at\"}
-#    }\" 
+#    }" 
+
+jupyter:
+  proxy: ""
+# Json config for the proxy
+# proxy: "
+#   {\"allowedSites\": [\"domain.of.your-school.edu\"]}
+#   }"
 
 lmsconfig:
   # configure your lms

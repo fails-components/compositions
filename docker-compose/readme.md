@@ -83,6 +83,10 @@ as well as open-source licenses
 - /static/oss/
 and optionally serves assets using secured links with limited temporal validity.
 
+Furthermore, it serves Jupyter Lite under
+- /jupyter/
+including a proxy for loading packages and hiding the student's ip:
+- /jupyter/proxy/
 
 
 ## Specific setup instructions
@@ -122,6 +126,9 @@ FAILS_S3_ALTURL="alternativehostnameforyoururls"
 FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yourschool.edu/lti/token.php|https://yourschool.edu/lti/auth.php|yourschool.edu/ TOPUNIVERSITY2|https://yourschool2.edu/lti/certs.php|https:/yourschool2.edu/lti/token.php|https://yourschool2.edu/lti/auth.php|yourschool2.edu/"
 # you can pipe custom support contact info and messages into the system for the lms app
 FAILS_APP_CONFIG_JSON="{\"support\": { \"text\": \"Please contact our support at\", \"url\": \"https://fabolous-support.de\"}, \"maintenance\": {\"message\": \"The system is going for maintenace at\"}}"
+# furthermore you can configure the jupyter proxy with (allowed sites are sites that are 
+# not blocked for access in jupyter, typically you should include domains of your school)
+FAILS_JUPYTER_PROXY_CONFIG="{\"allowedSites\": [\"domain.of.your-school.edu\"]}"
 # Next line downgrades access to learners, effective readonly mode, e.g. for maintenance or phasing in or out fails
 #FAILS_ONLY_LEARNERS="1"
 
