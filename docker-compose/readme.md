@@ -128,7 +128,7 @@ FAILS_LMS_LIST="TOPUNIVERSITY|https://yourschool.edu/lti/certs.php|https:/yoursc
 FAILS_APP_CONFIG_JSON="{\"support\": { \"text\": \"Please contact our support at\", \"url\": \"https://fabolous-support.de\"}, \"maintenance\": {\"message\": \"The system is going for maintenace at\"}}"
 # furthermore you can configure the jupyter proxy with (allowed sites are sites that are 
 # not blocked for access in jupyter, typically you should include domains of your school)
-FAILS_JUPYTER_PROXY_CONFIG="{\"allowedSites\": [\"domain.of.your-school.edu\"]}"
+FAILS_JUPYTER_PROXY_CONFIG="{\"allowedSites\": [\"https://domain.of.your-school.edu\"]}"
 # Next line downgrades access to learners, effective readonly mode, e.g. for maintenance or phasing in or out fails
 #FAILS_ONLY_LEARNERS="1"
 
