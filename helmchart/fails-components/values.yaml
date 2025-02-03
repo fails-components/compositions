@@ -27,10 +27,11 @@ app:
 #    }" 
 
 jupyter:
-  proxy: ""
+  proxy: "{\"allowedSites\": []
+     }"
 # Json config for the proxy
 # proxy: "
-#   {\"allowedSites\": [\"https://domain.of.your-school.edu\"]}
+#   {\"allowedSites\": [\"https://domain.of.your-school.edu\"]
 #   }"
 
 lmsconfig:
