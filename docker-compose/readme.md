@@ -131,6 +131,8 @@ FAILS_APP_CONFIG_JSON="{\"support\": { \"text\": \"Please contact our support at
 FAILS_JUPYTER_PROXY_CONFIG="{\"allowedSites\": [\"https://domain.of.your-school.edu\"]}"
 # Next line downgrades access to learners, effective readonly mode, e.g. for maintenance or phasing in or out fails
 #FAILS_ONLY_LEARNERS="1"
+# The next line adds admin privileges to a list of users, which are not already admins in the LMS
+FAILS_ADDL_ADMINS="username1 username2"
 
 
 REDIS_DATA_DIR="/path/to/your/redis/db"

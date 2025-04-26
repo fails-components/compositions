@@ -42,6 +42,8 @@ lmsconfig:
   # white list courses for a limited release in your lms
   # course_whitelist: "9999 8888"
   # course_whitelist: ""
+  # username of additional admins, which are not already admins in the lms
+  # addl_admins: "username1 username2"
 keys: 
   secretName: "fails-secrets"
   secretKey: "keys_secret"

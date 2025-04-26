@@ -63,6 +63,10 @@ spec:
             - name: FAILS_LMS_COURSE_WHITELIST
               value: "{{ .Values.lmsconfig.course_whitelist }}"
             {{- end }}
+            {{- if .Values.lmsconfig.addl_admins }}
+            - name: FAILS_ADDL_ADMINS
+              value: "{{ .Values.lmsconfig.addl_admins }}"
+            {{- end }}
             - name: FAILS_MONGO_PASSWORD
               valueFrom:
                 secretKeyRef:
