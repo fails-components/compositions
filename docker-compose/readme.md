@@ -134,6 +134,16 @@ FAILS_JUPYTER_PROXY_CONFIG="{\"allowedSites\": [\"https://domain.of.your-school.
 # The next line adds admin privileges to a list of users, which are not already admins in the LMS
 FAILS_ADDL_ADMINS="username1 username2"
 
+# the next lines config smtp settings for informing admins of avs router shortage, so far
+#FAILS_ADMIN_EMAIL_SERVER="mysuper.smtpserver.com"
+# the next variables use nodemailers defaults, you can leave them out
+#FAILS_ADMIN_EMAIL_SERVER_PORT=587
+# 1 means on, what only required if connection needs secure connection from the start, for most STARTTLS is ok
+#FAILS_ADMIN_EMAIL_SECURE="1"
+#FAILS_ADMIN_EMAIL_SENDER_ADDRESS="no-reply@your-fails-server.com"
+#FAILS_ADMIN_EMAIL_ACCOUNT_NAME="account@yoursmtpserver.com"
+#FAILS_ADMIN_EMAIL_ACCOUNT_PASSWORD="superdupersecretpassword"
+#FAILS_ADMIN_EMAILS_ROOT_ADDRESSES="lazyroot@admins.com,sleepyroot@admins.com"
 
 REDIS_DATA_DIR="/path/to/your/redis/db"
 REDIS_PASS="yourredispassword"

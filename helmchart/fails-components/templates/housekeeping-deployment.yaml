@@ -113,6 +113,27 @@ spec:
             - name: FAILS_S3_ALTURL
               value: "{{ .Values.s3.alturl }}"
             {{- end }}
+            {{- if .Values.adminemailconfig.sendemails }}
+            - name: FAILS_ADMIN_EMAIL_SERVER
+              value: "{{ .Values.adminemailconfig.server }}"
+            - name: FAILS_ADMIN_EMAIL_PORT
+              value: "{{ .Values.adminemailconfig.port }}"
+            - name: FAILS_ADMIN_EMAIL_SENDER_ADDRESS
+              value: "{{ .Values.adminemailconfig.senderaddress }}"
+            - name: FAILS_ADMIN_EMAIL_SECURE
+              value: "{{ if .Values.adminemailconfig.secure }}1{{ else }}0{{ end }}"
+            - name: FAILS_ADMIN_EMAIL_ACCOUNT_NAME
+              value: "{{ .Values.adminemailconfig.accountName }}"
+
+            - name: FAILS_ADMIN_EMAIL_ACCOUNT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.adminemailconfig.secretName }}
+                  key: {{ .Values.adminemailconfig.secretKeyEmailAccountPassword }}
+                  optional: true
+            - name: FAILS_ADMIN_EMAIL_ROOT_ADDRESSES
+              value: "{{ .Values.adminemailconfig.rootAddresses }}"
+            {{- end }}
           livenessProbe:
             exec:
               command:

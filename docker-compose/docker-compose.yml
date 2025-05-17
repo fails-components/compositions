@@ -181,6 +181,14 @@ services:
       - FAILS_S3_BUCKET
       - FAILS_S3_HOST
       - FAILS_S3_ALTURL
+# needed if admin emails  are sent
+      - FAILS_ADMIN_EMAIL_SERVER
+      - FAILS_ADMIN_EMAIL_SERVER_PORT
+      - FAILS_ADMIN_EMAIL_SENDER_ADDRESS
+      - FAILS_ADMIN_EMAIL_ROOT_ADDRESSES
+      - FAILS_ADMIN_EMAIL_ACCOUNT_NAME
+      - FAILS_ADMIN_EMAIL_ACCOUNT_PASSWORD
+      - FAILS_ADMIN_EMAIL_SECURE
     volumes:
       - type: bind
 # directory to store the user uploaded files (images, pdf), backup required

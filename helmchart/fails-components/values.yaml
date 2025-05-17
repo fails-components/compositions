@@ -48,6 +48,18 @@ keys:
   secretName: "fails-secrets"
   secretKey: "keys_secret"
 
+adminemailconfig:
+  sendemails: false
+  # server: "yoursmtpserver.com"
+  # or skip next line to use nodemailersdefault
+  # port: 465
+  # secure: false
+  # senderaddress: "noreply@thisisfails.com"
+  # rootAddresses: "lazyadmin@myadmins.com,sleepyadmin@myadmins.com"
+  # accountName: "myinbox@smtpserver.com"
+  secretName: "fails-secret"
+  secretKeyEmailAccountPassword: "email_account_password"
+
 #storage method for assets, openstackswift or s3
 storage: "s3"
 
