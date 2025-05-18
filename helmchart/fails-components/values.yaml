@@ -57,7 +57,7 @@ adminemailconfig:
   # senderaddress: "noreply@thisisfails.com"
   # rootAddresses: "lazyadmin@myadmins.com,sleepyadmin@myadmins.com"
   # accountName: "myinbox@smtpserver.com"
-  secretName: "fails-secret"
+  secretName: "fails-secrets"
   secretKeyEmailAccountPassword: "email_account_password"
 
 #storage method for assets, openstackswift or s3
