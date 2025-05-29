@@ -32,8 +32,8 @@ services:
       - AVSCONFIG
       - AVSROUTERURL=https://${AVSDOMAIN}/avfails
       - AVSROUTERWSURL=wss://${AVSDOMAIN}/avfails
-      - AVSMAXCLIENTS=${AVSMAXCLIENTS:-40}
-      - AVSMAXREALMS=${AVSMAXREALMS:-5}
+      - AVSMAXCLIENTS=${AVSMAXCLIENTS:-50}
+      - AVSMAXREALMS=${AVSMAXREALMS:-10}
       - AVSROUTERHOST=0.0.0.0
       - AVSROUTERPORT=443
 # filename for key and cert fopr http1, checked all 5 sec for changes
