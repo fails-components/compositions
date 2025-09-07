@@ -232,7 +232,7 @@ services:
 
 
   redis:
-    image: "redis:6.2-buster"
+    image: "redis:8.0-bookworm"
     restart: always
     command: redis-server --requirepass ${REDIS_PASS}
     volumes:
@@ -247,7 +247,7 @@ services:
 #      - "127.0.0.1:6379:6379"
 
   mongo:
-    image: "mongo:${MONGO_VERSION:-5.0-focal}"
+    image: "mongo:${MONGO_VERSION:-8.0-noble}"
     command: ${MONGO_OPTIONS}
     restart: always
     volumes:
@@ -261,8 +261,8 @@ services:
     expose:
       - "27017"
 # for development , should be commented for production
-#    ports:
-#      - "127.0.0.1:27017:27017"
+ #   ports:
+ #     - "127.0.0.1:27017:27017"
 
   mongo-backup:
     container_name: mongo-backup
