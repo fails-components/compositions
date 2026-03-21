@@ -1,4 +1,8 @@
 !["FAILS logo"](failslogo.svg )
+# Migration warning
+This repository and its packages and container images is currently migrated to the new monorepo [https://github.com/fails-components/fancy-lectures](https://github.com/fails-components/fancy-lectures).
+It will be archived soon after the migration is completed.
+
 # Fancy automated internet lecture system (**FAILS**) - components
 [![Publish apphandler container](https://github.com/fails-components/apphandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/apphandler/actions/workflows/docker-publish.yml)
 [![Publish authhandler container](https://github.com/fails-components/authhandler/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/fails-components/authhandler/actions/workflows/docker-publish.yml)
